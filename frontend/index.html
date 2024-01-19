@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *;**script-src 'self' http://onlineerp.solution.quebec 'unsafe-inline' 'unsafe-eval';** "> -->
+    <title>youtube summarizer</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- <script src="https://kit.fontawesome.com/432f3edb30.js" crossorigin="anonymous"></script> -->
+</head>
+
+<body>
+    <button id="btn">Get Summary</button>
+
+    <div class="tab">
+        <button class="tablinks" data-city="London">Highlights</button>
+        <button class="tablinks" data-city="Paris">Keywords</button>
+        <button class="tablinks" data-city="Tokyo">Summary</button>
+      </div>
+      
+      
+      <div id="London" class="tabcontent">
+        <h3>London</h3>
+        <p>London is the capital city of England.</p>
+      </div>
+      
+      <div id="Paris" class="tabcontent">
+        <div class="keyword_section">
+              <h2 class="heading">Keywords</h2>
+              <div class="keyword">
+                  Lorem, ipsum, dolor, sit, amet.
+              </div>
+          </div>
+      </div>
+      
+      <div id="Tokyo" class="tabcontent">
+        <div class="summary_section">
+      
+              <div class="summary_head">
+                  <h2 class="heading">Summary</h2>
+                  <div>
+                      <select id="languageSelector">
+                         
+                          <option value="en">English</option>
+                          <option value="es">Español</option>
+                          <option value="mr">Marathi</option>
+                         
+                      </select>
+      
+                      <button id="audioButton" onclick="toggleAudio()">▶️</button>
+                      <!-- <button id="audioButton" onclick="toggleAudio()"><i class="fas fa-play"></i></button> -->
+                  </div>
+              </div>
+      
+              <div class="summary" id="content">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi a deleniti, hic facilis aut ipsum facere
+                  veritatis numquam quisquam ea reiciendis, ullam repellat quae ipsa officia unde nesciunt, atque similique.
+      
+              </div>
+          </div>
+      </div>
+         
+    <script src="script.js"></script>
+</body>
+
+</html>

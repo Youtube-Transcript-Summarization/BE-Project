@@ -1,0 +1,31 @@
+{ 
+    "manifest_version": 3,
+    "name": "Youtube Summariser",
+    "description": "An extension to summarize youtube videos using the transcript",
+    "version": "1.0",
+    "permissions": ["activeTab", "declarativeContent"],
+    "host_permissions": ["http://127.0.0.1:5000/*"],
+    
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self'",
+        "sandbox": "sandbox allow-scripts",
+        "script-src": ["'self'", "https://kit.fontawesome.com"]
+      },
+    "action": {
+        "default_title": "Summarise this video",
+        "default_icon": {
+            "16": "images/icon.png",
+            "32": "images/icon.png",
+            "48": "images/icon.png",
+            "128": "images/icon.png"
+        },
+        "default_popup": "index.html"
+    },
+
+    "icons": {
+        "16": "images/icon.png",
+        "32": "images/icon.png",
+        "48": "images/icon.png",
+        "128": "images/icon.png"
+    }
+}
