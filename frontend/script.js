@@ -53,7 +53,8 @@ function get_summary() {
 let synth = window.speechSynthesis;
 let utterance = new SpeechSynthesisUtterance();
 let isPlaying = false;
-
+const btn2 = document.getElementById("audioButton");
+btn2.addEventListener("click", toggleAudio);
 function toggleAudio() {
   if (isPlaying) {
     synth.cancel();
