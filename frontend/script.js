@@ -27,21 +27,23 @@ function get_summary() {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "http://127.0.0.1:5000/summary?url=" + url, true);
     xhr.onload = function () {
-      var text = xhr.responseText;
+      var textStr = xhr.responseText;
+
       const p = document.getElementById("content");
-      p.innerHTML = text;
+      const kw = document.getElementById("kws");
+
+      var text = JSON.parse(textStr);
+
+      var keywords = text.keywords || "";
+      var summary = text.summary || "";
+      p.innerHTML = summary;
+      kw.innerHTML = keywords;
       btn.disabled = false;
       btn.innerHTML = "Get Summary";
       console.log(text)
-      // p.style.display = "block";
-
-      // var elems = document.getElementsByClassName('summary-section');
-      // for (var i = 0; i < elems.length; i += 1) {
-      //   elems[i].style.display = 'block';
-      // }
 
       var tabs = document.getElementsByClassName("tab");
-      for(var i = 0; i < tabs.length; i+=1){
+      for (var i = 0; i < tabs.length; i += 1) {
         tabs[i].style.display = "block";
       }
     }
