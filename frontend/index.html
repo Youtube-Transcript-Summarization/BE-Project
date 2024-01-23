@@ -7,6 +7,7 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *;**script-src 'self' http://onlineerp.solution.quebec 'unsafe-inline' 'unsafe-eval';** "> -->
     <title>youtube summarizer</title>
     <link rel="stylesheet" href="style.css">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/gtts@2.1.0/dist/index.min.js"></script> -->
     <!-- <script src="https://kit.fontawesome.com/432f3edb30.js" crossorigin="anonymous"></script> -->
 </head>
 
@@ -42,9 +43,9 @@
                   <div>
                       <select id="languageSelector">
                          
-                          <option value="en">English</option>
-                          <option value="es">Español</option>
-                          <option value="mr">Marathi</option>
+                        <option value="en">English</option>
+                        <option value="es">Spanish</option>
+                        <option value="fr">French</option>
                          
                       </select>
       
@@ -62,6 +63,10 @@
       </div>
          
     <script src="script.js"></script>
+
+    <audio id="audio" controls style="display:none;">
+        Your browser does not support the audio element.
+      </audio>
 </body>
 
 </html>

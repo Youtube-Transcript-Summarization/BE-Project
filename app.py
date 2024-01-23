@@ -162,6 +162,8 @@ from nltk.corpus import stopwords
 import spacy
 from spacy.lang.en import English
 from langdetect import detect
+from gtts import gTTS
+from googletrans import Translator
 
 app = Flask(__name__)
 
@@ -210,6 +212,9 @@ def summary_api():
         # If the summary exists in the database, return it directly
         summary = existing_summary[0]
         keywords = existing_summary[1]
+        translate_and_save_audio(summary, "en")
+        translate_and_save_audio(summary, "es")
+        translate_and_save_audio(summary, "fr")
         return jsonify({'summary': summary, "keywords": keywords}), 200
     else:
         # If the summary does not exist, fetch transcript and generate summary
@@ -228,6 +233,9 @@ def summary_api():
         conn.commit()
         
         # return summary,200
+        translate_and_save_audio(summary, "en")
+        translate_and_save_audio(summary, "es")
+        translate_and_save_audio(summary, "fr")
         return jsonify({'summary': summary, "keywords": keywords}), 200
 
 def get_transcript(video_id):
@@ -281,6 +289,31 @@ def get_keywords(text):
     keywords = {word for word in tokens if nlp_en(word)[0].pos_ in pos_tags_to_include}
 
     return keywords
+
+
+def translate_and_save_audio(summary, target_language='en'):
+    translator = Translator()
+
+    # Detect the language of the summary
+    source_language = translator.detect(summary).lang
+
+    # Translate the summary to the target language
+    translated_summary = translator.translate(summary, src=source_language, dest=target_language).text
+
+    # Generate a unique file name based on timestamp
+    # timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    # audio_file = "D:\\be-project\\frontend\\audio\\translated_summary_{target_language}.mp3"
+    audio_file = f"translated_summary_{target_language}.mp3"
+
+    # Create a gTTS object for the translated summary
+    tts = gTTS(text=translated_summary, lang=target_language, slow=False)
+
+    # Save the audio file
+    tts.save(audio_file)
+
+    print(f"Translation to {target_language} successful. Audio saved to {audio_file}")
+
+    return audio_file
 
 if __name__ == '__main__':
     # app.run(debug=True)
