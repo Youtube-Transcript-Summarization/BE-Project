@@ -18,6 +18,11 @@
 //     });
 // });
 const btn = document.getElementById("btn");
+const p = document.getElementById("content");
+var summary = ""
+var en_translate = ""
+var es_translate = ""
+var fr_translate = ""
 btn.addEventListener("click", get_summary);
 function get_summary() {
   btn.disabled = true;
@@ -29,13 +34,16 @@ function get_summary() {
     xhr.onload = function () {
       var textStr = xhr.responseText;
 
-      const p = document.getElementById("content");
+      // const p = document.getElementById("content");
       const kw = document.getElementById("kws");
 
       var text = JSON.parse(textStr);
 
       var keywords = text.keywords || "";
-      var summary = text.summary || "";
+       summary = text.summary || "";
+       en_translate = text.en_translate || "";
+       es_translate = text.es_translate || "";
+       fr_translate = text.fr_translate || "";
       p.innerHTML = summary;
       kw.innerHTML = keywords;
       btn.disabled = false;
@@ -167,6 +175,7 @@ btn2.addEventListener("click", toggleAudio);
 function toggleAudio() {
   if (isPlaying) {
     document.getElementById('audio').pause();
+    p.innerHTML = summary
     isPlaying = false;
     document.getElementById('audioButton').innerHTML = '▶️';
   } else {
@@ -174,12 +183,21 @@ function toggleAudio() {
 
     // Set the audio source URL based on the selected language
     const audioFile = `audio/translated_summary_${selectedLanguage}.mp3`
+   
     // const audioFile = `D:\be-project\frontend\audio\translated_summary_${selectedLanguage}.mp3`;
     document.getElementById('audio').src = audioFile;
 
     // Play the audio
     document.getElementById('audio').play();
-
+   if(selectedLanguage == "en"){
+    p.innerHTML = en_translate
+   }
+   else if(selectedLanguage == "es"){
+    p.innerHTML = es_translate
+   }
+   else if(selectedLanguage == "fr"){
+    p.innerHTML = fr_translate
+   }
     isPlaying = true;
     document.getElementById('audioButton').innerHTML = '⏸️';
   }
