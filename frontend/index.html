@@ -18,54 +18,91 @@
         <button class="tablinks" data-city="London">Highlights</button>
         <button class="tablinks" data-city="Paris">Keywords</button>
         <button class="tablinks" data-city="Tokyo">Summary</button>
-      </div>
-      
-      
-      <div id="London" class="tabcontent">
-       
-      </div>
-      
-      <div id="Paris" class="tabcontent">
+        <button class="tablinks" data-city="Feedback">Feedback</button>
+    </div>
+
+
+    <div id="London" class="tabcontent">
         <div class="keyword_section">
-              <h2 class="heading">Keywords</h2>
-              <div class="keyword", id="kws">
-                  Lorem, ipsum, dolor, sit, amet.
-              </div>
-          </div>
-      </div>
-      
-      <div id="Tokyo" class="tabcontent">
+            <h2 class="heading">Highlights</h2>
+            <div class="keyword", id="highlights">
+                <!-- 0:00 💻 Overpreparation for coding interviews<br>
+
+                0:45 📚 Memorizing coding problem solutions and reading interview books<br>
+
+                1:23 🔍 Stalking interviewers on LinkedIn, Facebook, and Twitter<br>
+
+                2:01 💰 Paying for leaked interview questions<br>
+
+                2:45 🧘‍♂️ Breathing exercises and meditation before interviews<br>
+
+                3:12 📝 Using cheat sheets during interviews -->
+            </div>
+        </div>
+
+    </div>
+
+    <div id="Paris" class="tabcontent">
+        <div class="keyword_section">
+            <h2 class="heading">Keywords</h2>
+            <div class="keyword" , id="kws">
+                Lorem, ipsum, dolor, sit, amet.
+            </div>
+        </div>
+    </div>
+
+    <div id="Tokyo" class="tabcontent">
         <div class="summary_section">
-      
-              <div class="summary_head">
-                  <h2 class="heading">Summary</h2>
-                  <div>
-                      <select id="languageSelector" name="language">
-                         
+
+            <div class="summary_head">
+                <h2 class="heading">Summary</h2>
+                <div>
+                    <select id="languageSelector" name="language">
+
                         <option value="en">English</option>
                         <option value="es">Spanish</option>
                         <option value="fr">French</option>
-                         
-                      </select>
-      
-                      <button id="audioButton" >▶️</button>
-                      <!-- <button id="audioButton" onclick="toggleAudio()"><i class="fas fa-play"></i></button> -->
-                  </div>
-              </div>
-      
-              <div class="summary" id="content">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi a deleniti, hic facilis aut ipsum facere
-                  veritatis numquam quisquam ea reiciendis, ullam repellat quae ipsa officia unde nesciunt, atque similique.
-      
-              </div>
-          </div>
-      </div>
-         
+
+                    </select>
+
+                    <button id="audioButton">▶️</button>
+                    <div>
+                        <button id="downloadButton">📥</button>
+                        <select name="downloadOption">
+                            <option value="Summary">Summary</option>
+                            <option value="Audio">Audio</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary" id="content">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi a deleniti, hic facilis aut ipsum
+                facere
+                veritatis numquam quisquam ea reiciendis, ullam repellat quae ipsa officia unde nesciunt, atque
+                similique.
+
+            </div>
+        </div>
+    </div>
+
+    <div id="Feedback" class="tabcontent">
+        <div class="feedback_section">
+            <h2 class="heading">Feedback Form</h2>
+            <div id="feedbackFormContainer">
+                <iframe src="https://forms.gle/cU1egUyDYqop79nKA" frameborder="0" width="100%" height="800px"></iframe>
+            </div>
+        </div>
+    </div>
+
+
+
+
     <script src="script.js"></script>
 
     <audio id="audio" controls style="display:none;">
         Your browser does not support the audio element.
-      </audio>
+    </audio>
 </body>
 
 </html>

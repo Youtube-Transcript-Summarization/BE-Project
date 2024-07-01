@@ -1,28 +1,15 @@
-// const btn = document.getElementsByClassName("btn");
-// btn.addEventListener("click", function(){
-//     btn.disabled = true;
-//     btn.innerHTML = "Summarising...";
-//     chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
-//         var url = tabs[0].url;
-//         var xhr = new XMLHttpRequest();
-//         xhr.open("GET", "http://127.0.0.1:5000/summary?url=" + url, true);
-//         xhr.onload = function(){
-//             var text = xhr.responseText;
-//             const p = document.getElementsByClassName("summary");
-//             p.innerHTML = text;
-//             btn.disabled = false;
-//             btn.innerHTML = "Summarise";
-//             p.style.display = "block";
-//         }
-//         xhr.send();
-//     });
-// });
 const btn = document.getElementById("btn");
 const p = document.getElementById("content");
+const kw = document.getElementById("kws");
+const highlights = document.getElementById("highlights");
 var summary = ""
 var en_translate = ""
 var es_translate = ""
 var fr_translate = ""
+var en_keywords = ""
+var es_keywords = ""
+var fr_keywords = ""
+var highlights_ts = ""
 btn.addEventListener("click", get_summary);
 function get_summary() {
   btn.disabled = true;
@@ -34,18 +21,27 @@ function get_summary() {
     xhr.onload = function () {
       var textStr = xhr.responseText;
 
-      // const p = document.getElementById("content");
-      const kw = document.getElementById("kws");
-
       var text = JSON.parse(textStr);
 
       var keywords = text.keywords || "";
-       summary = text.summary || "";
-       en_translate = text.en_translate || "";
-       es_translate = text.es_translate || "";
-       fr_translate = text.fr_translate || "";
+      summary = text.summary || "";
+      en_translate = text.en_translate || "";
+      es_translate = text.es_translate || "";
+      fr_translate = text.fr_translate || "";
+      en_keywords = text.en_keywords || "";
+      es_keywords = text.es_keywords || "";
+      fr_keywords = text.fr_keywords || "";
+      highlights_ts = text.highlights_ts || "";
       p.innerHTML = summary;
       kw.innerHTML = keywords;
+      highlights_ts.forEach(item => {
+        // Create a new <li> element
+        const listItem = document.createElement('li');
+        // Set the text content of the <li> element
+        listItem.textContent = item;
+        // Append the <li> element to the <ul> element
+        highlights.appendChild(listItem);
+    });
       btn.disabled = false;
       btn.innerHTML = "Get Summary";
       console.log(text)
@@ -54,117 +50,33 @@ function get_summary() {
       for (var i = 0; i < tabs.length; i += 1) {
         tabs[i].style.display = "block";
       }
+      btn.style.display = "none";
     }
     xhr.send();
   });
 };
 
+const select_btn = document.getElementById('languageSelector');
+select_btn.addEventListener("click", languageSelection);
 
-// let synth = window.speechSynthesis;
-// let utterance = new SpeechSynthesisUtterance();
-// let isPlaying = false;
-// const btn2 = document.getElementById("audioButton");
-// btn2.addEventListener("click", toggleAudio);
-// function toggleAudio() {
-//   if (isPlaying) {
-//     synth.cancel();
-//     isPlaying = false;
-//     // document.getElementById('audioButton').innerHTML = '<i class="fas fa-play"></i>';
-//     document.getElementById('audioButton').innerHTML = '▶️';
-//   } else {
-//     const content = document.getElementById('content').innerText;
-//     const selectedLanguage = document.getElementById('languageSelector').value;
-
-//     utterance.text = content;
-//     utterance.lang = selectedLanguage;
-//     synth.speak(utterance);
-
-//     isPlaying = true;
-//     // document.getElementById('audioButton').innerHTML = '<i class="fas fa-pause"></i>';
-//     document.getElementById('audioButton').innerHTML = '⏸️';
-//   }
-// }
-
-// let synth = window.speechSynthesis;
-// let utterance = new SpeechSynthesisUtterance();
-// let isPlaying = false;
-
-// const btn2 = document.getElementById("audioButton");
-// btn2.addEventListener("click", toggleAudio);
-
-// function toggleAudio() {
-//   if (isPlaying) {
-//     synth.cancel();
-//     isPlaying = false;
-//     document.getElementById('audioButton').innerHTML = '▶️';
-//   } else {
-//     const content = document.getElementById('content').value;
-//     const selectedLanguage = document.getElementById('languageSelector').value;
-
-//     // Translate the content to the selected language
-//     translateText(content, selectedLanguage)
-//       .then(translatedText => {
-//         // Create a gtts object with the translated text and language
-//         const gttsObj = new gTTS(translatedText, selectedLanguage);
-
-//         // Save the audio file
-//         gttsObj.save('output.mp3', function (err, result) {
-//           if (err) {
-//             console.error(`Audio save failed: ${err}`);
-//           } else {
-//             // Play the audio
-//             playAudio('output.mp3');
-
-//             isPlaying = true;
-//             document.getElementById('audioButton').innerHTML = '⏸️';
-//           }
-//         });
-//       })
-//       .catch(error => {
-//         console.error('Translation error:', error);
-//       });
-//   }
-// }
-
-// function translateText(text, targetLanguage) {
-//   // Your translation logic here
-//   return Promise.resolve(text);
-// }
-
-// function playAudio(audioFile) {
-//   // Your code to play the audio using an HTML audio element or other suitable method
-//   // Example: Create an audio element and play the audio
-//   const audio = new Audio(audioFile);
-//   audio.play();
-// }
-
-// let synth = window.speechSynthesis;
-// let utterance = new SpeechSynthesisUtterance();
-// let isPlaying = false;
-
-// const btn2 = document.getElementById("audioButton");
-// btn2.addEventListener("click", toggleAudio);
-
-// function toggleAudio() {
-//   if (isPlaying) {
-//     synth.cancel();
-//     isPlaying = false;
-//     document.getElementById('audioButton').innerHTML = '▶️';
-//   } else {
-//     const content = document.getElementById('content').innerText;
-//     const selectedLanguage = document.getElementById('languageSelector').value;
-
-//     // Set the text and language for the utterance
-//     utterance.text = content;
-//     utterance.lang = selectedLanguage;
-
-//     // Speak the utterance
-//     synth.speak(utterance);
-
-//     isPlaying = true;
-//     document.getElementById('audioButton').innerHTML = '⏸️';
-//   }
-// }
+function languageSelection(){
+  const selectedLanguage = select_btn.value;
+  console.log(selectedLanguage)
+  if(selectedLanguage != ""){
+    if(selectedLanguage == "en"){
+      p.innerHTML = en_translate
+      kw.innerHTML = en_keywords
+     }
+     else if(selectedLanguage == "es"){
+      p.innerHTML = es_translate
+      kw.innerHTML = es_keywords
+     }
+     else if(selectedLanguage == "fr"){
+      p.innerHTML = fr_translate
+      kw.innerHTML = fr_keywords
+     }
+  }
+}
 
 
 let isPlaying = false;
@@ -175,7 +87,6 @@ btn2.addEventListener("click", toggleAudio);
 function toggleAudio() {
   if (isPlaying) {
     document.getElementById('audio').pause();
-    p.innerHTML = summary
     isPlaying = false;
     document.getElementById('audioButton').innerHTML = '▶️';
   } else {
@@ -183,21 +94,11 @@ function toggleAudio() {
 
     // Set the audio source URL based on the selected language
     const audioFile = `audio/translated_summary_${selectedLanguage}.mp3`
-   
-    // const audioFile = `D:\be-project\frontend\audio\translated_summary_${selectedLanguage}.mp3`;
+
     document.getElementById('audio').src = audioFile;
 
     // Play the audio
     document.getElementById('audio').play();
-   if(selectedLanguage == "en"){
-    p.innerHTML = en_translate
-   }
-   else if(selectedLanguage == "es"){
-    p.innerHTML = es_translate
-   }
-   else if(selectedLanguage == "fr"){
-    p.innerHTML = fr_translate
-   }
     isPlaying = true;
     document.getElementById('audioButton').innerHTML = '⏸️';
   }
@@ -227,4 +128,52 @@ function openCity(evt, cityName) {
   }
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
+}
+document.addEventListener('DOMContentLoaded', function () {
+  // Get the download button
+  const downloadButton = document.getElementById('downloadButton');
+
+  // Attach a click event listener to the download button
+  downloadButton.addEventListener('click', function () {
+    // Get the selected option from the dropdown
+    const selectedOption = document.querySelector('select[name="downloadOption"]').value;
+
+    if (selectedOption === 'Summary') {
+      downloadSummary();
+    } else if (selectedOption === 'Audio') {
+      downloadAudio();
+    }
+
+  });
+  // Add event listener for the new tab button
+  const feedbackTabButton = document.querySelector('.tablinks[data-city="Feedback"]');
+  feedbackTabButton.addEventListener('click', function () {
+    openCity(event, 'Feedback');
+  });
+});
+
+function downloadSummary() {
+  const summaryText = document.getElementById('content').innerText;
+  download('summary.txt', summaryText);
+}
+
+function downloadAudio() {
+  // Assuming the audio source URL is set in the audio element
+  const audioSource = document.getElementById('audio').src;
+  // Replace 'audio' with the actual audio file URL
+  download('audio.mp3', audioSource);
+}
+
+// Function to trigger the download
+function download(filename, text) {
+  const element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
 }
